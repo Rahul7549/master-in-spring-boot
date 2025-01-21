@@ -14,10 +14,8 @@ public class CourseController {
                 new CourseModel(1,"Java","in28min"),
                 new CourseModel(2,"C#","in28min"),
                 new CourseModel(2,"C#","in28min"),
-                new CourseModel(2,"C#","in28min"),
                 new CourseModel(2,"C#","in28min")
         );
-
 
     }
 }
