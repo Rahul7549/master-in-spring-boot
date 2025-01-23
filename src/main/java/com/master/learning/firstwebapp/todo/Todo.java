@@ -2,8 +2,13 @@ package com.master.learning.firstwebapp.todo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Todo {
 	
+	@Id
 	private long id;
 	private String username;
 	private String description;
