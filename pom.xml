@@ -87,6 +87,12 @@
 			<artifactId>jquery</artifactId>
 			<version>3.6.0</version>
 		</dependency>
+		
+		<!--dependency for jsp input validator-->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 				
 	</dependencies>
 

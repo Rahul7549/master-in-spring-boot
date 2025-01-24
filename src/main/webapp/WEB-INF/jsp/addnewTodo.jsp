@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +10,19 @@
 	<div class='container'>
     	<h1>Add new Todo</h1>
 		<hr>
-		<form method="post">
+		<form:form method="post" modelAttribute="todo">
 			Description:
 			<div class="input-group">
-			  <input type="text" name="description" class="form-control" placeholder="Description" 
-			  aria-label="User need to inter description" aria-describedby="button-addon4">
+				<form:input type="hidden" path="done" class="form-control" />
+				<form:input type="hidden" path="id" class="form-control" />
+				<form:input type="hidden" path="done" class="form-control" />
+			  <form:input type="text" path="description" class="form-control" required="required"/>
 			  <div class="input-group-append" id="button-addon4">
 			    <button class="btn btn-outline-success" type="submit">Button</button>
 			  </div>
-			  </input>
+			 
 			</div>
-		</form>
+		</form:form>
 		
 		
 	</div>
