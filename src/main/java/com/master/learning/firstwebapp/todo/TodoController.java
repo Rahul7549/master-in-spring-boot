@@ -6,9 +6,12 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -36,7 +39,10 @@ public class TodoController {
 	}
 	
 	@PostMapping("/add-todo")
-	public String addTodo(ModelMap model,Todo todo) {
+	public String addTodo(ModelMap model,@Valid Todo todo, BindingResult result) {
+		if(result.hasErrors()) {
+			return "addnewTodo";
+		}
 		todo.setDone(false);
 		todo.setTargetDate(LocalDate.now().plusYears(1));
 		todo.setUsername((String) model.get("username"));

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Todo {
@@ -11,6 +12,7 @@ public class Todo {
 	@Id
 	private long id;
 	private String username;
+	@Size(min = 10,message = "Desc should be at least 10 Charector")
 	private String description;
 	private LocalDate targetDate;
 	private boolean done;

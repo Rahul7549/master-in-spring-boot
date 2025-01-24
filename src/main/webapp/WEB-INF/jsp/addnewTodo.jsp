@@ -17,11 +17,13 @@
 				<form:input type="hidden" path="id" class="form-control" />
 				<form:input type="hidden" path="done" class="form-control" />
 			  <form:input type="text" path="description" class="form-control" required="required"/>
+			  </br>
+			  
 			  <div class="input-group-append" id="button-addon4">
 			    <button class="btn btn-outline-success" type="submit">Button</button>
 			  </div>
-			 
 			</div>
+			<form:errors path="description" cssClass="text-danger"/>
 		</form:form>
 		
 		
