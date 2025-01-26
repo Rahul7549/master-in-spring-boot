@@ -3,6 +3,7 @@ package com.master.learning.firstwebapp.todo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -15,14 +16,20 @@ public class TodoService {
 	
 	
 	static {
-		todos.add(new Todo(++countTodo,"in28minutes","learn AWS",LocalDate.now().plusYears(1),false));
-		todos.add(new Todo(++countTodo,"in28minutes","learn AWS",LocalDate.now().plusYears(1),false));
-		todos.add(new Todo(++countTodo,"in28minutes","learn AWS",LocalDate.now().plusYears(1),false));
+		todos.add(new Todo(++countTodo,"Admin","learn AWS and C#",LocalDate.now().plusYears(1),false));
+		todos.add(new Todo(++countTodo,"Admin","learn AWS in 28min",LocalDate.now().plusYears(1),false));
+		todos.add(new Todo(++countTodo,"Rahul","learn AWS and C#",LocalDate.now().plusYears(1),false));
+		todos.add(new Todo(++countTodo,"Admin","learn AWS in 30 min",LocalDate.now().plusYears(1),false));
+		todos.add(new Todo(++countTodo,"Rahul","learn AWS",LocalDate.now().plusYears(1),false));
+		todos.add(new Todo(++countTodo,"Admin","learn AWS in 35 min",LocalDate.now().plusYears(1),false));
+		todos.add(new Todo(++countTodo,"Rahul","learn AWS in 1 hours",LocalDate.now().plusYears(1),false));
 	}
 	
 	
-	public List<Todo> findallTodo(){
-		return todos;
+	public List<Todo> findallTodo(String username){
+		return todos.stream()
+				.filter(t-> t.getUsername().equalsIgnoreCase(username))
+				.collect(Collectors.toList());
 	}
 	
 	public void addNewTodo(Todo todo) {

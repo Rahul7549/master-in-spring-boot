@@ -25,7 +25,7 @@ public class TodoController {
 	
 	@RequestMapping("/todo-list")
 	public String goToTodoListPage(ModelMap model) {
-		var todos= todoService.findallTodo();
+		var todos= todoService.findallTodo(getLoggedInUsername());
 		model.addAttribute("todos",todos);
 		return "todolistview";
 		
@@ -73,7 +73,7 @@ public class TodoController {
 		if(result.hasErrors()) {
 			return "addnewTodo";
 		}
-		todo.setUsername((String) model.get("username"));
+		todo.setUsername(getLoggedInUsername());
 		todoService.updateTodo(todo);
 		return "redirect:todo-list";
 	}
