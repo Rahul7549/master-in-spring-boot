@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
+	
+	
+//*****************AS We Started implemented the stater security  AuthenticationService is not usable any more
 
 	public boolean authenticateUser(String name, String password) {
 		boolean isValidUserName=name.equalsIgnoreCase("Admin");

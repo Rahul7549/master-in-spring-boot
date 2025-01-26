@@ -1,11 +1,10 @@
 package com.master.learning.firstwebapp.todo;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -13,13 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
 
 
 @Controller
-@SessionAttributes("username")
+//@SessionAttributes("username")
 public class TodoController {
 	
 	@Autowired
@@ -35,8 +33,8 @@ public class TodoController {
 	
 	@RequestMapping("/add-todo")
 	public String goToAddTodoPage(ModelMap model) {
-		String username=(String) model.get("username");
-		Todo todo= new Todo(1,username,"",LocalDate.now().plusYears(1),false);
+//		String username=(String) model.get("username");
+		Todo todo= new Todo(1,getLoggedInUsername(),"",LocalDate.now().plusYears(1),false);
         model.put("todo",todo);
 		return "addnewTodo";
 		
@@ -49,7 +47,7 @@ public class TodoController {
 		}
 		todo.setDone(false);
 		todo.setTargetDate(LocalDate.now().plusYears(1));
-		todo.setUsername((String) model.get("username"));
+		todo.setUsername(getLoggedInUsername());
 		todoService.addNewTodo(todo);
 		return "redirect:todo-list";
 		
@@ -66,7 +64,7 @@ public class TodoController {
 	@GetMapping("/update-todo")
 	public String goTOUpdateTodoPage(ModelMap model,@RequestParam Long id) {
 		Todo todo=todoService.findTodoById(id);
-        model.put("todo",todo);
+        model.addAttribute("todo",todo);
 		return "addnewTodo"; 
 	}
 	
@@ -75,11 +73,15 @@ public class TodoController {
 		if(result.hasErrors()) {
 			return "addnewTodo";
 		}
-		todo.setDone(false);
-		todo.setTargetDate(LocalDate.now().plusYears(1));
 		todo.setUsername((String) model.get("username"));
 		todoService.updateTodo(todo);
 		return "redirect:todo-list";
+	}
+	
+	private String getLoggedInUsername() {
+		Authentication authentication = 
+				SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
 	}
 	
 

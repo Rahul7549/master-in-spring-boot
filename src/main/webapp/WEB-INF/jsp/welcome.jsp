@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome</title>
-</head>
-<body>
+<%@ include file="common/header.jspf" %>
+<%@ include file="common/navigation.jspf" %>	
+
+<div class="conatinr">
+
     <h1>Welcome to the Spring Boot Application!</h1>
     <p>your UserName: ${username}</p>
 	<p>your password: ${password}</p>
-</body>
-</html>
+	<a href="todo-list">Manage</a> your todos
+</div>
+	
+<%@ include file="common/footer.jspf" %>
