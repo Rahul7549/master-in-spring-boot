@@ -1,11 +1,11 @@
 <%@ include file="common/header.jspf" %>
 <%@ include file="common/navigation.jspf" %>	
 
-<div class="conatinr">
+<div class="container">
 
     <h1>Welcome to the Spring Boot Application!</h1>
     <p>your UserName: ${username}</p>
-	<p>your password: ${password}</p>
+	<%-- <p>your password: ${password}</p> --%>
 	<a href="todo-list">Manage</a> your todos
 </div>
 	
