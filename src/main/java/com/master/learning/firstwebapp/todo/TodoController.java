@@ -22,10 +22,13 @@ public class TodoController {
 	
 	@Autowired
 	TodoService todoService;
+	@Autowired
+	TodoRepository todoRepository;
 	
 	@RequestMapping("/todo-list")
 	public String goToTodoListPage(ModelMap model) {
-		var todos= todoService.findallTodo(getLoggedInUsername());
+		//var todos= todoService.findallTodo(getLoggedInUsername());
+		var todos=todoRepository.findByUsername(getLoggedInUsername());
 		model.addAttribute("todos",todos);
 		return "todolistview";
 		
@@ -33,9 +36,9 @@ public class TodoController {
 	
 	@RequestMapping("/add-todo")
 	public String goToAddTodoPage(ModelMap model) {
-//		String username=(String) model.get("username");
-		Todo todo= new Todo(1,getLoggedInUsername(),"",LocalDate.now().plusYears(1),false);
-        model.put("todo",todo);
+        //String username=(String) model.get("username");
+		Todo todo= new Todo(0,getLoggedInUsername(),"",LocalDate.now().plusYears(1),false);
+        model.addAttribute("todo",todo);
 		return "addnewTodo";
 		
 	}
@@ -45,10 +48,15 @@ public class TodoController {
 		if(result.hasErrors()) {
 			return "addnewTodo";
 		}
-		todo.setDone(false);
-		todo.setTargetDate(LocalDate.now().plusYears(1));
+		//todo.setDone(false);
+		//todo.setTargetDate(LocalDate.now().plusYears(1));
+		//todo.setUsername(getLoggedInUsername());
+		
 		todo.setUsername(getLoggedInUsername());
-		todoService.addNewTodo(todo);
+		//todoService.addNewTodo(todo);
+		//System.out.println(todo);
+		todoRepository.save(todo);
+		//System.out.println(todo);
 		return "redirect:todo-list";
 		
 	}
@@ -56,14 +64,16 @@ public class TodoController {
 	
 	@GetMapping("/delete-todo")
 	public String deleteTodo(@RequestParam long id) {
-		todoService.deleteTodo(id);
+		//todoService.deleteTodo(id);
+		todoRepository.deleteById(id);
 		return "redirect:todo-list"; 
 	}
 	
 	
 	@GetMapping("/update-todo")
 	public String goTOUpdateTodoPage(ModelMap model,@RequestParam Long id) {
-		Todo todo=todoService.findTodoById(id);
+		//Todo todo=todoService.findTodoById(id);
+	    Todo todo=todoRepository.findById(id).get();
         model.addAttribute("todo",todo);
 		return "addnewTodo"; 
 	}
@@ -74,7 +84,8 @@ public class TodoController {
 			return "addnewTodo";
 		}
 		todo.setUsername(getLoggedInUsername());
-		todoService.updateTodo(todo);
+		//todoService.updateTodo(todo);
+		todoRepository.save(todo);
 		return "redirect:todo-list";
 	}
 	
